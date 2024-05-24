@@ -1,8 +1,15 @@
-name: huuuuuuuu
-
+name: Test inputs
 on:
-  # 手動実行
   workflow_dispatch:
+    inputs:
+      ip:
+        type: string
+        required: true
+        description: 'ip-addr'
+      port:
+        type: string
+        required: true
+        description: 'port-number'
 
 jobs:
 
