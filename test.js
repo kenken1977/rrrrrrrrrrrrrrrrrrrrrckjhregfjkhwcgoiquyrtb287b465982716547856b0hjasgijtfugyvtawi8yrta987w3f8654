@@ -7,8 +7,8 @@ export let options = {
 };
 
 export default function () {
-  const url = 'http://dns1.hivebedrock.network/'; 
-  const response = http.post(url);
+  const url = '139.99.115.108'; 
+  const response = http.get(url);
   console.log("Response status code:", response.status);
 
   sleep(0.00000001); // オプションの待機時間
