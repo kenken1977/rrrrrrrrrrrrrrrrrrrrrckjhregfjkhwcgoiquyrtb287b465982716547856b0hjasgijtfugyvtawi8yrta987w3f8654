@@ -1,0 +1,23 @@
+name: Run k6 Load Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  k6-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up k6
+        uses: grafana/setup-k6@v1
+        with:
+          version: 'latest'
+
+      - name: Run k6 script
+        run: k6 run load-test.js
