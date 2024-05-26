@@ -4,7 +4,7 @@ import { check, sleep } from 'k6';
 // 負荷テストの設定
 const loadTestOptions = {
   vus: 50000, // 負荷テスト時の仮想ユーザーの数
-  duration: '30s', // 負荷テスト時の実行時間
+  duration: '60s', // 負荷テスト時の実行時間
 };
 
 // 初期状態の設定
