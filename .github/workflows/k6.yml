@@ -7,15 +7,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  k6-test:
+  k6test_1:
+    name: Run k6 test 1
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Set up k6
+      - name: k6 Load Test
         uses: grafana/k6-action@v0.3.1
-
-      - name: Run k6 script
-        run: k6 run k6/workflow.js
+        with:
+          filename: k6/workload.js
