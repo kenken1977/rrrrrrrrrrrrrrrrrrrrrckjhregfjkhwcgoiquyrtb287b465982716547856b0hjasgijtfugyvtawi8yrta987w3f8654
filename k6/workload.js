@@ -20,7 +20,7 @@ export function setup() {
 
 export default function () {
   while (true) {
-    let res = http.get('https://your-vercel-app.vercel.app'); // テストするURLを設定
+    let res = http.get('https://k6startsite.vercel.app/api/start-endpoint'); // テストするURLを設定
     check(res, {
       'status is 200': (r) => r.status === 200,
     });
