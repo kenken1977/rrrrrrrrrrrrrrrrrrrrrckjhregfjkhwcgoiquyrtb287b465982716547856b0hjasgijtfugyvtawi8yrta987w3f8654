@@ -10,8 +10,8 @@ const loadTestOptions = {
 // 初期状態の設定
 export let options = {
   vus: 1,
-  duration: '10000000000m', // 待機状態の持続時間
-  setupTimeout: '10000000000m', // 初期セットアップのタイムアウト
+  duration: '365d', // 待機状態の持続時間
+  setupTimeout: '365d', // 初期セットアップのタイムアウト
 };
 
 export function setup() {
