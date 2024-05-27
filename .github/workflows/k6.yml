@@ -20,4 +20,4 @@ jobs:
           version: 'latest'
 
       - name: Run k6 script
-        run: k6 run load-test.js
+        run: k6 run /k6/load-test.js
